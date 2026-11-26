@@ -13,6 +13,15 @@ A local control room for the Roblox agent team. You message each of 16 role agen
 
 The page keeps the owner token in that browser's localStorage and removes it from the address bar. Opening http://127.0.0.1:4317 directly only works in a browser that has signed in once; otherwise it shows "Sign in to Agent HQ", so use the shortcut again. You can also start the server by hand with `node tools/agent-hq/server.mjs`. State lives in `<repo>/.agent-hq/` (gitignored): `hq.db`, `owner-token` (yours), `token` (the agents'), `logs/`, `media/`. Role memory is in `tools/agent-hq/memory/` (committed).
 
+## The hub (the dashboard at /)
+
+`public/hub/` (`index.html`, `hub.css`, `hub.js`, no dependencies) is the dashboard. Every page is native and talks to `/api/*`; nothing links to the old dashboard, which still answers at `/legacy` for anyone who wants it.
+
+- **Workspace**: Home (Ask the Lead, Needs you, what is happening, Live now, quick settings), Review (waiting and history; options, approve, ask for changes, hold, reject, dismiss; keys 1-9, A, C, R), Lead and Team (one chat per agent with Lessons, Past chats and Start fresh), Tasks (filters, search, and a drawer per task with the ask, summary, readable activity log, brief, cancel, run again and move to a game).
+- **Studio**: Games (cards, New game, archive; per game: Overview with next step, note, version, changelog, icon and Build and open in Studio; Pipeline with stage requests; Live numbers with the Open Cloud connection; Publish gate with the checklist, the two-step confirm and ad notes), Create (6 kinds, each routed to its agent), Library (your assets, the free catalog with Get, skills), Asset Packs (packs and UI kits), Vault (search, playbook chapters, notes, Notebook), Pitches (waiting, your ideas, idea scores, history), Market (moves, new on the charts, every chart).
+- **Connect**: Discord (read only), HQ Link (partner messages, co-op board, Agent HQ version), Settings (every field from `/api/settings/schema`, the custom ones as editors, plus a Health check), Help.
+- The game menu (top left) filters Home, Tasks, Review and the badges to one game. Ctrl K searches pages, agents, games, open tasks and what needs you.
+
 ## Using it
 
 - **Team**: a roster of all 16 roles with status (working, queued, review, idle). Click one to open its chat. Whatever you send becomes a task for that role; messages wait their turn while it is working. Buttons: New task, Lessons (what the role has learned), Start fresh (new conversation), Stop (cancel the working task).
